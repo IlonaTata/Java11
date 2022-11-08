@@ -1,16 +1,29 @@
 public class Radio {
-    private int currentRadioStationNumber;
+    private int size = 9;
+    private int minRadioStationNumber = 0;
+    private int maxRadioStationNumber = 9;
+    private int currentRadioStationNumber = minRadioStationNumber;
     private int soundVolume;
+    private int maxSoundVolume = 100;
+    private int minSoundVolume = 0;
+
+    public Radio(int minRadioStationNumber, int maxRadioStationNumber, int size) {
+        this.minRadioStationNumber = minRadioStationNumber;
+        this.maxRadioStationNumber = maxRadioStationNumber;
+        this.currentRadioStationNumber = minRadioStationNumber;
+        this.size = size;
+    }
+
 
     public int getCurrentRadioStationNumber() {
         return currentRadioStationNumber;
     }
 
     public void setCurrentRadioStationNumber(int newCurrentRadioStationNumber) {
-        if (newCurrentRadioStationNumber < 0) {
+        if (newCurrentRadioStationNumber <= minRadioStationNumber) {
             return;
         }
-        if (newCurrentRadioStationNumber > 9) {
+        if (newCurrentRadioStationNumber > maxRadioStationNumber) {
             return;
         }
         currentRadioStationNumber = newCurrentRadioStationNumber;
@@ -18,55 +31,60 @@ public class Radio {
 
 
     public int nextStation() {
-        if (currentRadioStationNumber >= 9) {
-            return currentRadioStationNumber = 0;
+        if (currentRadioStationNumber >= maxRadioStationNumber) {
+            return minRadioStationNumber;
         }
         return currentRadioStationNumber = currentRadioStationNumber + 1;
     }
 
     public int prevStation() {
-        if (currentRadioStationNumber <= 0) {
-            return currentRadioStationNumber = 9;
+        if (currentRadioStationNumber <= minRadioStationNumber) {
+            return maxRadioStationNumber;
         }
         return currentRadioStationNumber = currentRadioStationNumber - 1;
     }
 
-
-    public int getSoundVolume() {
-        return soundVolume;
+    public int getMaxRadioStationNumber() {
+        return maxRadioStationNumber;
     }
 
 
+    public Radio(int minSoundVolume, int maxSoundVolume) {
+        this.minSoundVolume = minSoundVolume;
+        this.maxSoundVolume = maxSoundVolume;
+        this.soundVolume = minSoundVolume;
+    }
+        public int getSoundVolume () {
+            return soundVolume;
+        }
     public void setSoundVolume(int newSoundVolume) {
-        if (newSoundVolume < 0) {
+        if (newSoundVolume < minSoundVolume) {
             return;
         }
-        if (newSoundVolume > 10) {
+        if (newSoundVolume > maxSoundVolume) {
             return;
         }
         soundVolume = newSoundVolume;
     }
 
-    public void increaseVolume() {
-        if (soundVolume < 10) {
-            soundVolume = soundVolume + 1;
+        public void increaseVolume () {
+            if (soundVolume < maxSoundVolume) {
+                soundVolume = soundVolume + 1;
+            }
         }
 
+        public void increaseVolumeMoreMax () {
+            if (soundVolume >= maxSoundVolume) {
+                soundVolume = maxSoundVolume;
+            }
+        }
 
-    }
-
-    public void increaseVolumeMoreMax() {
-        if (soundVolume >= 10) {
-            soundVolume = 10;
+        public void increaseVolumeMoreMin () {
+            if (soundVolume <= minSoundVolume) {
+                soundVolume = minSoundVolume;
+            }
         }
     }
-
-    public void increaseVolumeMoreMin() {
-        if (soundVolume <= 0) {
-            soundVolume = 0;
-        }
-    }
-}
 
 
 
